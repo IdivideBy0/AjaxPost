@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <p>Status Message</p>
+    <p id="msg"></p>
+</div>
+
+@section scripts {
+
+<script>
+
+    $(document).ready(function () {
+
+        document.getElementById("msg").innerHTML = 'Wait for it....';
+       
+        var paramModel = { param1: "Hello", param2: "World" };
+
+        var serviceURL = '/Ajax/PostJson';
+        
+        setTimeout(doAjax, 3000); // wait 3 seconds
+
+        function doAjax() {
+            $.ajax({
+                type: "POST",
+                url: serviceURL,
+                data: JSON.stringify(paramModel),
+                contentType: 'application/json',
+                success: successFunc,
+                error: errorFunc
+            });
+
+        }
+        
+
+        function successFunc(data, status) {
+            document.getElementById("msg").innerHTML = data;
+        }
+
+        function errorFunc() {
+            alert('error');
+        }
+    });
+
+</script>
+
+}
+
